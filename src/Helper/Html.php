@@ -13,6 +13,12 @@ use yii\base\InvalidArgumentException;
 class Html extends \yii\helpers\Html
 {
     /**
+     * @var string[]
+     * @see _sortedDataAttributes()
+     */
+    private static array $_sortedDataAttributes;
+
+    /**
      * @inheritdoc
      */
     public static function tag($name, $content = '', $options = [])
@@ -64,6 +70,15 @@ class Html extends \yii\helpers\Html
         }
 
         return $normalized;
+    }
+
+    private static function _sortedDataAttributes(): array
+    {
+        if (!isset(self::$_sortedDataAttributes)) {
+            self::$_sortedDataAttributes = array_merge(static::$dataAttributes);
+            usort(self::$_sortedDataAttributes, fn(string $a, string $b): int => strlen($b) - strlen($a));
+        }
+        return self::$_sortedDataAttributes;
     }
 
     /**
