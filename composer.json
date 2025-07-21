@@ -1,0 +1,12 @@
+{
+  "name": "localghost/twig-hateml",
+  "autoload": {
+    "psr-4": {
+      "localghost\\Twig\\Extra\\Hateml\\": "src/"
+    }
+  },
+  "require": {
+    "twig/twig": "^3.0",
+    "php": ">=8.1"
+  }
+}
