@@ -2,13 +2,13 @@
 
 namespace localghost\Twig\Extra\Hateml\Node;
 
-use localghost\Twig\Extra\Hateml\Helper\Html;
+use Yiisoft\Html\Html;
 use Twig\Compiler;
 use Twig\Node\Node;
 
 /**
  * Class TagNode
- *
+ * @see https://github.com/craftcms/cms/blob/dd09e52e60d57e2e0e4cfa3b86d0fc90df4e4aa1/src/web/twig/nodes/TagNode.php
  * @author Pixel & Tonic, Inc. <support@pixelandtonic.com>
  * @since 3.6.0
  */
@@ -27,12 +27,14 @@ class TagNode extends Node
             ->subcompile($this->getNode('name'))
             ->raw(', ob_get_clean()');
 
-        if ($this->hasNode('options')) {
+
+        if ($this->hasNode('attributes')) {
             $compiler
                 ->raw(', ')
-                ->subcompile($this->getNode('options'));
+                ->subcompile($this->getNode('attributes'));
         }
 
-        $compiler->raw(");\n");
+        // Hmm, could disabling encoding be dangerous?
+        $compiler->raw(")->encode(false);\n");
     }
 }

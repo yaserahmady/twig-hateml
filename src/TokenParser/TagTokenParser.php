@@ -1,7 +1,5 @@
 <?php
 
-// https://github.com/craftcms/cms/blob/0c0e410243138536687297a2ea876c420bc66d49/src/web/twig/tokenparsers/TagTokenParser.php
-
 namespace localghost\Twig\Extra\Hateml\TokenParser;
 
 use localghost\Twig\Extra\Hateml\Node\TagNode;
@@ -10,6 +8,7 @@ use Twig\TokenParser\AbstractTokenParser;
 
 /**
  * Class TagTokenParser
+ * @see https://github.com/craftcms/cms/blob/0c0e410243138536687297a2ea876c420bc66d49/src/web/twig/tokenparsers/TagTokenParser.php
  *
  * @author Pixel & Tonic, Inc. <support@pixelandtonic.com>
  * @since 3.6.0
@@ -30,16 +29,15 @@ class TagTokenParser extends AbstractTokenParser
     public function parse(Token $token): TagNode
     {
         $lineno = $token->getLine();
-        $expressionParser = $this->parser->getExpressionParser();
         $stream = $this->parser->getStream();
 
         $nodes = [
-            'name' => $expressionParser->parseExpression(),
+            'name' => $this->parser->parseExpression(),
         ];
 
         if ($stream->test(Token::NAME_TYPE, 'with')) {
             $stream->next();
-            $nodes['options'] = $expressionParser->parseExpression();
+            $nodes['attributes'] = $this->parser->parseExpression();
         }
 
         $stream->expect(Token::BLOCK_END_TYPE);

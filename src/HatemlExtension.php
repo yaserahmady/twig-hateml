@@ -4,20 +4,10 @@ namespace localghost\Twig\Extra\Hateml;
 
 use localghost\Twig\Extra\Hateml\TokenParser\TagTokenParser;
 use Twig\Extension\AbstractExtension;
-use yii\web\Application;
+use Twig\TwigFunction;
+use Yiisoft\Html\Html;
 
-require __DIR__ . '/../vendor/yiisoft/yii2/Yii.php';
 
-new Application([
-    'id' => 'basic',
-    'basePath' => dirname(__DIR__),
-]);
-
-/**
- * Custom Twig extension for WordPress/Timber
- *
- * Provides the {% tag %} functionality similar to Craft CMS
- */
 class HatemlExtension extends AbstractExtension {
     /**
      * @inheritdoc
@@ -25,5 +15,16 @@ class HatemlExtension extends AbstractExtension {
     public function getTokenParsers(): array
     {
         return [new TagTokenParser()];
+    }
+
+    /**
+     * @inheritdoc
+     */
+    public function getFunctions(): array
+    {
+
+        return [
+            new TwigFunction('attr', [Html::class, 'renderTagAttributes'], ['is_safe' => ['html']]),
+        ];
     }
 }
