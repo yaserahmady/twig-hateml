@@ -9,6 +9,7 @@ use Twig\Extension\AbstractExtension;
 use Twig\TwigFunction;
 use Twig\TwigFilter;
 use Yiisoft\Arrays\ArrayHelper;
+use Yiisoft\Html\Html as YiisoftHtml;
 
 
 class HatemlExtension extends AbstractExtension
@@ -31,7 +32,7 @@ class HatemlExtension extends AbstractExtension
     {
 
         return [
-            new TwigFunction('attr', [Html::class, 'renderTagAttributes'], ['is_safe' => ['html']]),
+            new TwigFunction('attr', [YiisoftHtml::class, 'renderTagAttributes'], ['is_safe' => ['html']]),
             new TwigFunction('tag', [$this, 'tagFunction'], ['is_safe' => ['html']]),
         ];
     }
