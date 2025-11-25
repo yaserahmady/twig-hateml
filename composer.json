@@ -1,7 +1,6 @@
 {
   "name": "localghost/twig-hateml",
   "description": "Twig extension for those who Hate The Markup Language",
-  "version": "0.0.2",
   "require": {
     "twig/twig": "^3.0",
     "php": ">=8.1",
