@@ -6,7 +6,7 @@ use InvalidArgumentException;
 use Yiisoft\Html\Html as YiisoftHtml;
 use Yiisoft\Arrays\ArrayHelper;
 
-class Html extends YiisoftHtml
+class Html
 {
 
     public static function modifyTagAttributes(string $tag, array $attributes): string
@@ -22,7 +22,7 @@ class Html extends YiisoftHtml
         }
 
         return substr($tag, 0, $start) .
-            static::renderTagAttributes($attributes) .
+            YiisoftHtml::renderTagAttributes($attributes) .
             substr($tag, $end);
     }
 
